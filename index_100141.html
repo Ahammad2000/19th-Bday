@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy 19th Birthday To My One & Only Princess — A Small Gift For My Gurl</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#1b2ad4;--muted:#9ca3af;--glass:rgba(255,255,255,0.04)}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#240717 0%,#35081d 60%);color:#ffe6f3}
+    .container{max-width:980px;margin:32px auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#05dd6d);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+    h1{margin:0;font-size:26px;color:#06f1aa}
+    p.lead{color:var(--muted);margin-top:6px}
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,.6);margin-top:20px}
+    .typewriter{font-size:18px;line-height:1.5;min-height:110px}
+    .cursor{display:inline-block;width:8px;background:var(--accent);margin-left:6px;animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
+    .thumb{background:var(--glass);border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center;height:110px;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+    .timeline{margin-top:18px}
+    .event{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
+    .evtime{color:var(--muted);font-size:13px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--accent),#ec4899);border:none;padding:10px 14px;border-radius:10px;color:#051020;font-weight:700;cursor:pointer}
+    .btn--ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent)}
+    .secret{margin-top:12px;display:flex;gap:8px}
+    input[type='text']{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;min-width:180px}
+    footer{margin-top:22px;color:var(--muted);font-size:13px}
+    canvas{position:fixed;left:0;top:0;pointer-events:none}
+    @media (max-width:600px){.container{padding:12px}.logo{width:56px;height:56px}}
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="container">
+    <header>
+      <div class="logo">💚💙</div>
+      <div>
+        <h1>Happy 19th Birthday My Dear Pookiee Gurl 😘🫂💙</h1>
+        <p class="lead">An interactive memory page made with love.</p>
+      </div>
+    </header>
+    <div class="card">
+      <strong>Love Letter From Your Love🎀💗 — For My Pookiee Gurl 💙</strong>
+      <div id="type" class="typewriter"></div>
+      <div class="cursor" id="cursor"></div>
+      <div style="margin-top:12px" class="row">
+        <button class="btn" id="replay">Replay Letter</button>
+        <button class="btn btn--ghost" id="download">Download as PDF</button>
+      </div>
+    </div>
+    <div class="card">
+      <strong>Memory Gallery</strong>
+      <p class="lead">Replace the images in the <code>/images</code> folder to personalize.</p>
+      <div class="gallery" id="gallery"></div>
+    </div>
+    <div class="card timeline">
+      <strong>Timeline — milestones</strong>
+      <div id="timeline"></div>
+    </div>
+    <div class="card">
+      <strong>Secret Message</strong>
+      <p class="lead">Type your nickname to reveal the hidden message.</p>
+      <div class="secret">
+        <input id="secretInput" placeholder="type nickname here" />
+        <button class="btn" id="reveal">Reveal</button>
+      </div>
+      <div id="secretArea" style="margin-top:10px;color:var(--muted)"></div>
+    </div>
+    <div class="card">
+      <strong>Play Music</strong>
+      <p class="lead">Add your song file in /music/song.mp3 and click play.</p>
+      <div style="margin-top:8px" class="row">
+        <button class="btn" id="play">Play</button>
+        <button class="btn btn--ghost" id="pause">Pause</button>
+      </div>
+      <audio id="bg" src="music/song.mp3" loop></audio>
+    </div>
+    <footer>Open in browser or use Live Server. Upload to Netlify to share link.</footer>
+  </div>
+  <script>
+    const letter = `Happy 19th Birthday My Dear Pookiee Gurl 😘🫂💙
+
+Hey my love,
+
+On your 19th birthday, I wanted to give you something that survives time — a little place to hold our moments forever.
+
+My Dear Pookiee, there are moments in life when someone arrives so quietly, so unexpectedly, that you don’t even realize at first how deeply they are changing your world. That is exactly what you did to me. You walked into my life with your gentle smile and your soft presence, and without trying, without forcing anything, you became one of the most important parts of my heart. You have a way of making everything around you feel calmer, softer, and more meaningful. Even on days when I feel lost, confused, or tired, the thought of you brings me peace in a way nothing else ever has. You don’t even realize how much light you add to my life just by being yourself. I admire your innocence, your strength, your quiet confidence, and the way you carry your heart with so much tenderness. You are truly special, and I love every little detail that makes you who you are.
+
+As you turn nineteen, I want you to know that my love for you isn’t something shallow or temporary—it’s something that grows deeper every day. I don’t love you only when you smile or only when everything is perfect; I love you when you’re tired, when you’re quiet, when you’re overthinking, when you’re unsure, and when you don’t feel like your strongest self. I love you in the ways you show strength, and also in the ways you show vulnerability. You have a heart that feels deeply, and that is one of the things I cherish most about you. I want you to know that no matter how far we are physically, no matter how busy life becomes, you are always the first warmth my mind reaches for when the world feels heavy. Being loved by you is one of the most beautiful experiences of my life, and loving you is something I will never take for granted.
+
+You have become the person I want to talk to after the best days and the one I look for during the hardest ones. You are the person I want to protect, the person I want to understand, the person I want to grow with, and the person I want to support in every possible way. I will always believe in your dreams, your abilities, and your future, even on the days when you doubt yourself. I want to see you win. I want to see you smile without holding back. I want to see you confident in who you are, because you deserve a life filled with happiness, peace, and love that doesn’t fade away. And I promise that as long as life allows me, I will be beside you through every change, every challenge, and every new beginning. I will always be your safe place, your comfort, and the person who loves you without conditions.
+
+You are truly my dear Pookiee — the girl whose name feels like home every time I think of it. You are the one I want to build memories with, the one I want to celebrate every birthday with, and the one I want to grow older with. I am grateful for you in ways I can’t even fully explain. Thank you for being you — for being gentle, for being strong, for being honest, for being loving, and for being the beautiful soul that you are. On your 19th birthday, I hope you feel valued, loved, protected, and cherished, because that is exactly what you are to me. And I hope you never forget this: my love for you isn’t something that will fade or weaken over time. It is steady, deep, loyal, and unconditional — the kind of love that stays even when life gets difficult, the kind of love that grows even when we are apart, the kind of love that remains no matter what.
+
+Happy 19th Birthday, my love. My dear Pookiee.
+You will always have a special place inside my heart — a place no one else will ever touch.
+
+— Always yours 💗`;
+    const galleryImages = ['images/1.jpg','images/2.jpg','images/3.jpg','images/4.jpg'];
+    const timelineEvents = [{time:'First met', desc:'That day when our eyes met for the first time.'},{time:'First laugh', desc:'When you made me laugh like crazy without my knowings.'},{time:'Our favourite day', desc:'When you entered to my heart without anyones permission.'}];
+    const secretNickname = 'pookiee';
+    const secretMessage = 'I love you endlessly, my Pookiee Gurl. Happy 19th Birthday Dear! 😚🫂💗';
+
+    const typeEl=document.getElementById('type');const cursor=document.getElementById('cursor');
+    function typeText(text,el,speed=22){el.textContent='';let i=0;cursor.style.display='inline-block';return new Promise(resolve=>{function step(){if(i<text.length){const ch=text[i++];if(ch==='\n') el.appendChild(document.createElement('br'));else el.appendChild(document.createTextNode(ch));setTimeout(step,speed);}else{cursor.style.display='none';resolve();}}step();});}
+    document.getElementById('replay').addEventListener('click',()=>typeText(letter,typeEl));
+    window.addEventListener('load',()=>typeText(letter,typeEl));
+
+    const gallery=document.getElementById('gallery');galleryImages.forEach(src=>{const d=document.createElement('div');d.className='thumb';const img=document.createElement('img');img.src=src;img.alt='memory';img.onerror=()=>{img.src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="%23081420"/><text x="50%" y="50%" fill="%239aa0b1" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace images</text></svg>'};d.appendChild(img);gallery.appendChild(d);d.addEventListener('click',()=>openImage(src));});
+    function openImage(src){const w=window.open('','_blank');w.document.write(`<img src="${src}" style="max-width:100%;height:auto;display:block;margin:0 auto;background:#000;padding:20px">`);}
+
+    const timeline=document.getElementById('timeline');timelineEvents.forEach(ev=>{const row=document.createElement('div');row.className='event';row.innerHTML=`<div class="dot"></div><div><div class="evtime">${ev.time}</div><div>${ev.desc}</div></div>`;timeline.appendChild(row);});
+
+    document.getElementById('reveal').addEventListener('click',()=>{const val=document.getElementById('secretInput').value.trim().toLowerCase();const area=document.getElementById('secretArea');if(val===secretNickname.toLowerCase()){area.style.color='white';area.textContent=secretMessage;launchConfetti();}else{area.style.color='var(--muted)';area.textContent='Nope — try again';}});
+
+    const audio=document.getElementById('bg');document.getElementById('play').addEventListener('click',()=>audio.play());document.getElementById('pause').addEventListener('click',()=>audio.pause());
+
+    document.getElementById('download').addEventListener('click',()=>{const w=window.open('','_blank');w.document.write(`<pre style="font-family:Inter,system-ui;white-space:pre-wrap;">${letter}</pre>`);w.document.close();w.print();});
+
+    function launchConfetti(){const c=document.getElementById('confetti');c.width=innerWidth;c.height=innerHeight;const ctx=c.getContext('2d');const pieces=[];for(let i=0;i<120;i++){pieces.push({x:Math.random()*c.width,y:Math.random()*-c.height,vy:2+Math.random()*6,angle:Math.random()*360,size:6+Math.random()*8,color:`hsl(${Math.random()*360},90%,60%)`})}let anim=true;(function loop(){if(!anim) return;ctx.clearRect(0,0,c.width,c.height);pieces.forEach(p=>{p.y+=p.vy;p.x+=Math.sin(p.y/10);ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.angle*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);ctx.restore();if(p.y>c.height+50)p.y=-20;});requestAnimationFrame(loop)})();setTimeout(()=>anim=false,6000);}
+  </script>
+</body>
+</html>
