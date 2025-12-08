@@ -4,38 +4,167 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Happy 19th Birthday To My One & Only Princess — A Small Gift For My Gurl</title>
+  <meta name="color-scheme" content="dark">
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#1b2ad4;--muted:#9ca3af;--glass:rgba(255,255,255,0.04)}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#240717 0%,#35081d 60%);color:#ffe6f3}
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#1b2ad4;
+      --muted:#9ca3af;
+      --glass:rgba(255,255,255,0.04);
+      --heart:#ff5ea8;
+      --neon:#ff4fa6;
+      --text:#ffe6f3;
+    }
+    /* base */
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#240717 0%,#35081d 60%);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
     .container{max-width:980px;margin:32px auto;padding:24px}
     header{display:flex;gap:16px;align-items:center}
     .logo{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#05dd6d);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
     h1{margin:0;font-size:26px;color:#06f1aa}
     p.lead{color:var(--muted);margin-top:6px}
     .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,.6);margin-top:20px}
-    .typewriter{font-size:18px;line-height:1.5;min-height:110px}
+
+    /* neon */
+    h1,strong{ text-shadow:0 0 8px var(--neon), 0 0 12px var(--neon) }
+    .btn{ box-shadow:0 0 12px #ff2f9d; transition:transform .2s,box-shadow .2s }
+    .btn:hover{ transform:scale(1.03); box-shadow:0 0 18px #ff2f9d }
+
+    /* typing */
+    .typewriter{font-size:18px;line-height:1.5;min-height:110px;white-space:pre-wrap}
     .cursor{display:inline-block;width:8px;background:var(--accent);margin-left:6px;animation:blink 1s steps(2) infinite}
     @keyframes blink{50%{opacity:0}}
+
+    /* gallery */
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
-    .thumb{background:var(--glass);border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center;height:110px;overflow:hidden}
-    .thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+    .thumb{background:var(--glass);border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center;height:110px;overflow:hidden;animation:slideIn 1s ease forwards;opacity:0;border:1px solid rgba(255,255,255,0.06);box-shadow:0 0 8px #ff309c55}
+    @keyframes slideIn{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .thumb:nth-child(1){animation-delay:.08s}
+    .thumb:nth-child(2){animation-delay:.16s}
+    .thumb:nth-child(3){animation-delay:.24s}
+    .thumb:nth-child(4){animation-delay:.32s}
+    .thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px;cursor:pointer;display:block;touch-action:manipulation}
+    /* make images square on larger screens while keeping responsive */
+    @media(min-width:720px){ .thumb{height:160px} }
+
+    /* timeline */
     .timeline{margin-top:18px}
     .event{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
     .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
     .evtime{color:var(--muted);font-size:13px}
+
+    /* row and buttons */
     .row{display:flex;gap:12px;flex-wrap:wrap}
     .btn{background:linear-gradient(90deg,var(--accent),#ec4899);border:none;padding:10px 14px;border-radius:10px;color:#051020;font-weight:700;cursor:pointer}
     .btn--ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent)}
-    .secret{margin-top:12px;display:flex;gap:8px}
-    input[type='text']{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;min-width:180px}
+
     footer{margin-top:22px;color:var(--muted);font-size:13px}
-    canvas{position:fixed;left:0;top:0;pointer-events:none}
-    @media (max-width:600px){.container{padding:12px}.logo{width:56px;height:56px}}
+
+    /* confetti canvas */
+    canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:999}
+
+    /* floating background hearts */
+    .bg-heart{position:fixed;bottom:-20px;font-size:22px;color:var(--heart);animation:floatUp 6s linear infinite;opacity:.8;pointer-events:none;filter:drop-shadow(0 0 6px #ff1f7f);z-index:0}
+    @keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:.9}50%{opacity:1}100%{transform:translateY(-120vh) scale(1.6);opacity:0}}
+
+    /* modal/lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(3,6,12,.85);display:flex;align-items:center;justify-content:center;padding:20px;z-index:2000;opacity:0;pointer-events:none;transition:opacity .25s}
+    .lightbox.show{opacity:1;pointer-events:all}
+    .lightbox img{max-width:96vw;max-height:86vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.7)}
+
+    /* heart particles */
+    .particle{position:fixed;font-size:18px;pointer-events:none;display:inline-block;transform-origin:center;filter:drop-shadow(0 0 6px #ff4fa6);will-change:transform,opacity}
+
+    /* opening-screen full */
+    #opening-screen{position:fixed;inset:0;background:linear-gradient(180deg,#0b0620 0%, #190621 60%);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:5000}
+    /* teddy SVG container */
+    .teddy-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+    #heart-book{width:220px;height:200px;position:relative;cursor:pointer;transition:transform .6s ease}
+    /* heart-book halves */
+    .book-left,.book-right{position:absolute;top:10px;width:110px;height:180px;border-radius:110px 110px 12px 12px;background:#ff3b8d;box-shadow:0 6px 24px #ff3b8d66;transform-origin:bottom center;transition:transform .9s cubic-bezier(.2,.9,.2,1)}
+    .book-left{left:0}
+    .book-right{right:0}
+    .book-center{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:120px;height:164px;background:linear-gradient(180deg,#fff 0%,#ffe9f6 100%);border-radius:8px;box-shadow:inset 0 2px 6px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;opacity:0;transform-origin:center;transition:opacity .8s .4s, transform .8s .4s}
+    /* opened state */
+    .opening-open .book-left{transform:rotate(-130deg) translateX(-10px)}
+    .opening-open .book-right{transform:rotate(130deg) translateX(10px)}
+    .opening-open .book-center{opacity:1;transform:translateX(-50%) scale(1)}
+    /* press hint */
+    .tap-hint{color:rgba(255,255,255,.8);font-size:14px;opacity:.9}
+
+    /* responsive tweaks */
+    @media(max-width:600px){
+      .container{padding:12px}
+      .logo{width:56px;height:56px}
+      h1{font-size:20px}
+      .thumb{height:140px}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      .btn{width:100%;text-align:center}
+      #heart-book{width:160px;height:140px}
+      .book-left,.book-right{width:80px;height:120px}
+      .book-center{width:90px;height:100px;top:14px}
+    }
   </style>
 </head>
 <body>
+  <!-- confetti canvas -->
   <canvas id="confetti"></canvas>
-  <div class="container">
+
+  <!-- Opening full-screen: Teddy holding heart & heart-book -->
+  <div id="opening-screen" aria-hidden="false">
+    <div class="teddy-wrap" role="button" aria-label="Open the love book" tabindex="0">
+      <!-- Inline blue baby teddy SVG (style 4: baby teddy holding heart) -->
+      <svg id="teddy-svg" width="260" height="260" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="blue teddy holding heart">
+        <!-- simple cute blue teddy SVG illustration -->
+        <defs>
+          <linearGradient id="furs" x1="0" x2="1"><stop offset="0" stop-color="#8fbef8"/><stop offset="1" stop-color="#5ea0ff"/></linearGradient>
+        </defs>
+        <g transform="translate(10,6)">
+          <!-- ears -->
+          <ellipse cx="52" cy="46" rx="30" ry="30" fill="url(#furs)"></ellipse>
+          <ellipse cx="168" cy="46" rx="30" ry="30" fill="url(#furs)"></ellipse>
+          <!-- head -->
+          <ellipse cx="110" cy="82" rx="64" ry="64" fill="url(#furs)"></ellipse>
+          <!-- eyes -->
+          <ellipse cx="88" cy="80" rx="9" ry="12" fill="#0b1220"></ellipse>
+          <ellipse cx="132" cy="80" rx="9" ry="12" fill="#0b1220"></ellipse>
+          <!-- blush -->
+          <ellipse cx="76" cy="98" rx="14" ry="8" fill="#ffd5e8" opacity="0.7"></ellipse>
+          <ellipse cx="144" cy="98" rx="14" ry="8" fill="#ffd5e8" opacity="0.7"></ellipse>
+          <!-- nose & mouth -->
+          <ellipse cx="110" cy="96" rx="8" ry="6" fill="#451f3a"></ellipse>
+          <path d="M100 106 q10 12 20 0" stroke="#451f3a" stroke-width="3" fill="none" stroke-linecap="round"></path>
+          <!-- body -->
+          <ellipse cx="110" cy="160" rx="78" ry="66" fill="url(#furs)"></ellipse>
+          <!-- arms holding heart -->
+          <path d="M58 150 q20 30 52 22" fill="none" stroke="url(#furs)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M162 150 q-20 30 -52 22" fill="none" stroke="url(#furs)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"></path>
+          <!-- heart in hands -->
+          <g transform="translate(80,120)">
+            <path d="M30 8 C30 -6 54 -6 54 8 C54 18 30 30 30 44 C30 30 6 18 6 8 C6 -6 30 -6 30 8 Z" fill="#ff6aa1" stroke="#ff4f8f" stroke-width="2"></path>
+          </g>
+          <!-- little bow -->
+          <rect x="90" y="162" width="40" height="10" rx="4" fill="#ff7eb0" />
+          <!-- tiny sparkle -->
+          <path d="M30 30 l6 3 l-6 3 l-3 6 l-3-6 l-6-3 l6-3 l3-6 z" fill="#fff8" opacity=".6"/>
+        </g>
+      </svg>
+
+      <!-- heart-book element (click this to open) -->
+      <div id="heart-book" title="Open the love-book" aria-hidden="false">
+        <div class="book-left"></div>
+        <div class="book-right"></div>
+        <div class="book-center">
+          <div style="text-align:center;padding:12px;color:#92204b;font-weight:700;">Open Me 💖</div>
+        </div>
+      </div>
+
+      <div class="tap-hint">Tap the heart-book to open our love letter 💙📖</div>
+    </div>
+  </div>
+
+  <!-- MAIN SITE CONTENT -->
+  <div class="container" id="main-site" style="opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;pointer-events:none;">
     <header>
       <div class="logo">💚💙</div>
       <div>
@@ -43,6 +172,8 @@
         <p class="lead">An interactive memory page made with love.</p>
       </div>
     </header>
+
+    <!-- Love Letter -->
     <div class="card">
       <strong>Love Letter From Your Love🎀💗 — For My Pookiee Gurl 💙</strong>
       <div id="type" class="typewriter"></div>
@@ -52,38 +183,37 @@
         <button class="btn btn--ghost" id="download">Download as PDF</button>
       </div>
     </div>
+
+    <!-- Gallery -->
     <div class="card">
       <strong>Memory Gallery</strong>
       <p class="lead">Your special moments captured here 🫂💙</p>
-
       <div class="gallery" id="gallery">
-        <div class="thumb box1">
-            <img src="images/image1.jpg" alt="Image 1">
-        </div>
-        <div class="thumb box2">
-            <img src="images/image2.jpg" alt="Image 2">
-        </div>
-        <div class="thumb box3">
-            <img src="images/image3.jpg" alt="Image 3">
-        </div>
-        <div class="thumb box4">
-            <img src="images/image4.jpg" alt="Image 4">
-        </div>
+        <div class="thumb box1"><img src="images/image1.jpg" alt="memory 1"></div>
+        <div class="thumb box2"><img src="images/image2.jpg" alt="memory 2"></div>
+        <div class="thumb box3"><img src="images/image3.jpg" alt="memory 3"></div>
+        <div class="thumb box4"><img src="images/image4.jpg" alt="memory 4"></div>
       </div>
     </div>
+
+    <!-- Timeline -->
     <div class="card timeline">
       <strong>Timeline — milestones</strong>
       <div id="timeline"></div>
     </div>
+
+    <!-- Secret -->
     <div class="card">
       <strong>Secret Message</strong>
       <p class="lead">Type your nickname to reveal the hidden message.</p>
-      <div class="secret">
-        <input id="secretInput" placeholder="type nickname here" />
+      <div class="secret" style="margin-top:8px;display:flex;gap:8px;">
+        <input id="secretInput" placeholder="type nickname here" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;min-width:180px">
         <button class="btn" id="reveal">Reveal</button>
       </div>
       <div id="secretArea" style="margin-top:10px;color:var(--muted)"></div>
     </div>
+
+    <!-- Music -->
     <div class="card">
       <strong>Play Music</strong>
       <p class="lead">There is a song included. Click Play Given Below.</p>
@@ -93,10 +223,19 @@
       </div>
       <audio id="bg" src="music/song.mp3" loop></audio>
     </div>
+
     <footer>Made By Your Baby😘💙</footer>
   </div>
-  <script>
-    const letter = `Happy 19th Birthday My Dear Pookiee Gurl 😘🫂💙
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true"><img id="lightboxImg" alt="large view"></div>
+
+  <!-- floating background hearts (small decorative ones) -->
+  <div id="bg-hearts"></div>
+
+<script>
+/* ---------- Configuration / Strings ---------- */
+const letter = `Happy 19th Birthday My Dear Pookiee Gurl 😘🫂💙
 
 Hey my love,
 
@@ -114,27 +253,262 @@ Happy 19th Birthday, my love. My dear Pookiee.
 You will always have a special place inside my heart — a place no one else will ever touch.
 
 — Always yours 💗`;
-    const timelineEvents = [{time:'First met', desc:'That day when our eyes met for the first time.'},{time:'First laugh', desc:'When you made me laugh like crazy without my knowings.'},{time:'Our favourite day', desc:'When you entered to my heart without anyones permission.'}];
-    const secretNickname = 'pookiee';
-    const secretMessage = 'I love you endlessly, my Pookiee Gurl. Happy 19th Birthday Dear! 😚🫂💗';
 
-    const typeEl=document.getElementById('type');const cursor=document.getElementById('cursor');
-    function typeText(text,el,speed=22){el.textContent='';let i=0;cursor.style.display='inline-block';return new Promise(resolve=>{function step(){if(i<text.length){const ch=text[i++];if(ch==='\n') el.appendChild(document.createElement('br'));else el.appendChild(document.createTextNode(ch));setTimeout(step,speed);}else{cursor.style.display='none';resolve();}}step();});}
-    document.getElementById('replay').addEventListener('click',()=>typeText(letter,typeEl));
-    window.addEventListener('load',()=>typeText(letter,typeEl));
+const timelineEvents = [
+  {time:'First met', desc:'That day when our eyes met for the first time.'},
+  {time:'First laugh', desc:'When you made me laugh like crazy without my knowings.'},
+  {time:'Our favourite day', desc:'When you entered to my heart without anyones permission.'}
+];
 
-    const gallery=document.getElementById('gallery');galleryImages.forEach(src=>{const d=document.createElement('div');d.className='thumb';const img=document.createElement('img');img.src=src;img.alt='memory';img.onerror=()=>{img.src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="%23081420"/><text x="50%" y="50%" fill="%239aa0b1" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace images</text></svg>'};d.appendChild(img);gallery.appendChild(d);d.addEventListener('click',()=>openImage(src));});
-    function openImage(src){const w=window.open('','_blank');w.document.write(`<img src="${src}" style="max-width:100%;height:auto;display:block;margin:0 auto;background:#000;padding:20px">`);}
+const secretNickname = 'pookiee';
+const secretMessage = 'I love you endlessly, my Pookiee Gurl. Happy 19th Birthday Dear! 😚🫂💗';
 
-    const timeline=document.getElementById('timeline');timelineEvents.forEach(ev=>{const row=document.createElement('div');row.className='event';row.innerHTML=`<div class="dot"></div><div><div class="evtime">${ev.time}</div><div>${ev.desc}</div></div>`;timeline.appendChild(row);});
+/* ---------- Opening animation (teddy + heart-book) ---------- */
+const openingScreen = document.getElementById('opening-screen');
+const heartBook = document.getElementById('heart-book');
+const mainSite = document.getElementById('main-site');
 
-    document.getElementById('reveal').addEventListener('click',()=>{const val=document.getElementById('secretInput').value.trim().toLowerCase();const area=document.getElementById('secretArea');if(val===secretNickname.toLowerCase()){area.style.color='white';area.textContent=secretMessage;launchConfetti();}else{area.style.color='var(--muted)';area.textContent='Nope — try again';}});
+function openBookReveal() {
+  // animate book halves open
+  openingScreen.classList.add('opening-open');
+  // quick small pop on teddy
+  const teddy = document.getElementById('teddy-svg');
+  teddy.style.transformOrigin = 'center';
+  teddy.style.transition = 'transform .6s';
+  teddy.style.transform = 'scale(0.98)';
+  // after a short delay fade out opening screen and show main content
+  setTimeout(() => {
+    openingScreen.style.transition = 'opacity .6s, transform .6s';
+    openingScreen.style.opacity = '0';
+    openingScreen.style.pointerEvents = 'none';
+    // show main content
+    setTimeout(() => {
+      openingScreen.style.display = 'none';
+      mainSite.style.opacity = '1';
+      mainSite.style.transform = 'translateY(0)';
+      mainSite.style.pointerEvents = 'auto';
+      // play a tiny reveal sparkle (confetti)
+      launchConfetti(120);
+    }, 700);
+  }, 900);
+}
 
-    const audio=document.getElementById('bg');document.getElementById('play').addEventListener('click',()=>audio.play());document.getElementById('pause').addEventListener('click',()=>audio.pause());
+// trigger on click or keypress (Enter/Space)
+heartBook.addEventListener('click', openBookReveal);
+heartBook.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') openBookReveal(); });
 
-    document.getElementById('download').addEventListener('click',()=>{const w=window.open('','_blank');w.document.write(`<pre style="font-family:Inter,system-ui;white-space:pre-wrap;">${letter}</pre>`);w.document.close();w.print();});
+/* ---------- Typing effect for letter ---------- */
+const typeEl = document.getElementById('type');
+const cursor = document.getElementById('cursor');
 
-    function launchConfetti(){const c=document.getElementById('confetti');c.width=innerWidth;c.height=innerHeight;const ctx=c.getContext('2d');const pieces=[];for(let i=0;i<120;i++){pieces.push({x:Math.random()*c.width,y:Math.random()*-c.height,vy:2+Math.random()*6,angle:Math.random()*360,size:6+Math.random()*8,color:`hsl(${Math.random()*360},90%,60%)`})}let anim=true;(function loop(){if(!anim) return;ctx.clearRect(0,0,c.width,c.height);pieces.forEach(p=>{p.y+=p.vy;p.x+=Math.sin(p.y/10);ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.angle*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);ctx.restore();if(p.y>c.height+50)p.y=-20;});requestAnimationFrame(loop)})();setTimeout(()=>anim=false,6000);}
-  </script>
+function typeText(text, el, speed = 18) {
+  el.textContent = '';
+  let i = 0;
+  cursor.style.display = 'inline-block';
+  return new Promise(resolve => {
+    function step() {
+      if (i < text.length) {
+        const ch = text[i++];
+        if (ch === '\n') el.appendChild(document.createElement('br'));
+        else el.appendChild(document.createTextNode(ch));
+        setTimeout(step, speed);
+      } else {
+        cursor.style.display = 'none';
+        resolve();
+      }
+    }
+    step();
+  });
+}
+window.addEventListener('load', () => {
+  // don't auto-show the letter until after opening; if opening-screen already hidden (e.g., developer preview),
+  // show letter immediately
+  if (openingScreen.style.display === 'none' || openingScreen.style.opacity === '0') {
+    typeText(letter, typeEl);
+  } else {
+    // wait a moment after reveal
+    const observer = new MutationObserver(() => {
+      if (openingScreen.style.display === 'none') {
+        typeText(letter, typeEl);
+        observer.disconnect();
+      }
+    });
+    observer.observe(openingScreen, { attributes: true, attributeFilter:['style'] });
+  }
+});
+document.getElementById('replay').addEventListener('click', () => typeText(letter, typeEl));
+
+/* ---------- Gallery click: lightbox + heart-particle burst ---------- */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+
+function showLightbox(src, clientX=window.innerWidth/2, clientY=window.innerHeight/2) {
+  lightboxImg.src = src;
+  lightbox.classList.add('show');
+  lightbox.setAttribute('aria-hidden','false');
+  // also create heart burst at click point
+  heartBurst(clientX, clientY);
+}
+function hideLightbox() {
+  lightbox.classList.remove('show');
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxImg.src = '';
+}
+lightbox.addEventListener('click', hideLightbox);
+
+document.querySelectorAll('.gallery img').forEach(img => {
+  img.addEventListener('click', (e) => {
+    const r = img.getBoundingClientRect();
+    const cx = e.clientX || (r.left + r.width/2);
+    const cy = e.clientY || (r.top + r.height/2);
+    showLightbox(img.src, cx, cy);
+  });
+});
+
+/* heart particle burst */
+function heartBurst(x, y) {
+  const count = 30;
+  for (let i=0;i<count;i++){
+    createParticle(x + (Math.random()*40-20), y + (Math.random()*40-20));
+  }
+}
+function createParticle(x, y) {
+  const el = document.createElement('div');
+  el.className = 'particle';
+  el.innerText = ['💗','💓','💕','💘','💝'][Math.floor(Math.random()*5)];
+  el.style.left = (x) + 'px';
+  el.style.top = (y) + 'px';
+  document.body.appendChild(el);
+
+  // random animation path
+  const dx = (Math.random()*160 - 80);
+  const dy = - (60 + Math.random()*140);
+  const rot = (Math.random()*720 - 360);
+  el.animate([
+    { transform: `translate(0,0) rotate(0deg) scale(1)`, opacity: 1 },
+    { transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(.4)`, opacity: 0 }
+  ], {
+    duration: 900 + Math.random()*500,
+    easing: 'cubic-bezier(.2,.8,.2,1)'
+  });
+
+  setTimeout(()=> el.remove(), 1600);
+}
+
+/* ---------- Floating background hearts generator ---------- */
+setInterval(()=>{
+  const h = document.createElement('div');
+  h.className = 'bg-heart';
+  h.innerText = '💗';
+  h.style.left = Math.random()*100 + 'vw';
+  h.style.fontSize = (14 + Math.random()*18) + 'px';
+  document.body.appendChild(h);
+  setTimeout(()=> h.remove(), 6000);
+}, 1000);
+
+/* ---------- Timeline populate ---------- */
+const timeline = document.getElementById('timeline');
+timelineEvents.forEach(ev => {
+  const row = document.createElement('div');
+  row.className = 'event';
+  row.innerHTML = `<div class="dot"></div><div><div class="evtime">${ev.time}</div><div>${ev.desc}</div></div>`;
+  timeline.appendChild(row);
+});
+
+/* ---------- Secret reveal & confetti ---------- */
+document.getElementById('reveal').addEventListener('click', () => {
+  const val = document.getElementById('secretInput').value.trim().toLowerCase();
+  const area = document.getElementById('secretArea');
+  if (val === secretNickname.toLowerCase()) {
+    area.style.color = 'white';
+    area.textContent = secretMessage;
+    launchConfetti(140);
+  } else {
+    area.style.color = 'var(--muted)';
+    area.textContent = 'Nope — try again';
+  }
+});
+
+/* ---------- Audio controls ---------- */
+const audio = document.getElementById('bg');
+document.getElementById('play').addEventListener('click', ()=> audio.play());
+document.getElementById('pause').addEventListener('click', ()=> audio.pause());
+
+/* ---------- Download / Print ---------- */
+document.getElementById('download').addEventListener('click', ()=>{
+  const w = window.open('','_blank');
+  w.document.write(`<pre style="font-family:Inter,system-ui;white-space:pre-wrap;">${letter}</pre>`);
+  w.document.close();
+  w.print();
+});
+
+/* ---------- Lightbox close on Esc ---------- */
+window.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') {
+    hideLightbox();
+  }
+});
+
+/* ---------- Confetti implementation (simple) ---------- */
+function launchConfetti(amount=80) {
+  const c = document.getElementById('confetti');
+  c.width = innerWidth;
+  c.height = innerHeight;
+  const ctx = c.getContext('2d');
+  const pieces = [];
+  for (let i=0;i<amount;i++){
+    pieces.push({
+      x: Math.random()*c.width,
+      y: Math.random()*-c.height,
+      vy: 2 + Math.random()*6,
+      angle: Math.random()*360,
+      size: 6 + Math.random()*8,
+      color: `hsl(${Math.random()*360},90%,60%)`
+    });
+  }
+  let anim = true;
+  (function loop(){
+    if(!anim) return;
+    ctx.clearRect(0,0,c.width,c.height);
+    pieces.forEach(p=>{
+      p.y += p.vy;
+      p.x += Math.sin(p.y/10);
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.angle*Math.PI/180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+      ctx.restore();
+      if(p.y > c.height + 50) p.y = -20;
+    });
+    requestAnimationFrame(loop);
+  })();
+  setTimeout(()=> anim = false, 6000);
+}
+
+/* ---------- On initial load: if user navigates directly to main (opening hidden), start letter typing ---------- */
+if (openingScreen.style.display === 'none' || getComputedStyle(openingScreen).opacity === '0') {
+  typeText(letter, typeEl);
+} else {
+  // If user clicks book, typing will start after opening logic triggers observer above.
+}
+
+/* ---------- Accessibility: allow Enter key on teddy/book area to open ---------- */
+document.querySelectorAll('.teddy-wrap').forEach(el=>{
+  el.addEventListener('keydown', (e)=> {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openBookReveal();
+    }
+  });
+});
+
+/* ---------- Safety: handle missing images gracefully ---------- */
+document.querySelectorAll('.gallery img').forEach(img=>{
+  img.addEventListener('error', ()=> {
+    img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="%23081420"/><text x="50%" y="50%" fill="%239aa0b1" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace image</text></svg>';
+  });
+});
+</script>
 </body>
 </html>
